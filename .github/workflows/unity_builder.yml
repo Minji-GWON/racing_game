@@ -4,28 +4,30 @@ run-name: Unity Build Test
 on: workflow_dispatch
 
 permissions: write-all
-  
+
 jobs:
-  #Job 설정
-  buildForAndroid: 
+  buildForAndroid:
     name: Build Android
     runs-on: ubuntu-latest
     steps:
 
+      # 1. Checkout repository
       - name: Check Out
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           lfs: true
-    
+
+      # 2. Cache Unity Library folder for faster builds
       - name: Cache Library
         uses: actions/cache@v4.0.2
-        with: 
+        with:
           path: Library
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
             Library-
 
+      # 3. Unity Build
       - name: Unity Build
         uses: game-ci/unity-builder@v4
         env:
@@ -34,7 +36,9 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: Android
-      
+          unityVersion: 2022.3.5f1 # Unity 버전을 명시적으로 설정
+
+      # 4. Upload the build artifacts
       - name: Upload Build File
         uses: actions/upload-artifact@v3
         with:
