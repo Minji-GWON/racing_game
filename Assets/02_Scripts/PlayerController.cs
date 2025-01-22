@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,41 +7,71 @@ public class PlayerController : MonoBehaviour
     public float minX = -8.5f; // X축 최소값
     public float maxX = 0.92f; // X축 최대값
 
-    private float screenMiddle; // 화면 중앙값
+    public float fuel = 100f; // 현재 연료값
+    public float maxFuel = 100f; // 최대 연료값
+    public TextMeshProUGUI fuelText; // UI 텍스트
 
-    void Start()
+    public float fuelDecreaseInterval = 2f; // 연료 감소 간격 (초)
+    public float fuelDecreaseAmount = 10f; // 감소할 연료량
+
+    private void Start()
     {
-        // 화면 중앙값 미리 계산
-        screenMiddle = Screen.width * 0.5f;
+        // 일정 간격마다 연료 감소
+        InvokeRepeating(nameof(DecreaseFuelOverTime), fuelDecreaseInterval, fuelDecreaseInterval);
     }
 
-    void Update()
+    private void Update()
     {
-        // 화면 입력 처리
-        if (Input.GetMouseButton(0)) // 마우스 왼쪽 버튼 또는 터치 입력
+        HandleInput(); // 플레이어 입력 처리
+        UpdateFuelUI(); // 연료 UI 업데이트
+    }
+
+    private void HandleInput()
+    {
+        if (Input.GetMouseButton(0))
         {
-            Vector3 touchPosition = Input.mousePosition; // 입력된 화면 위치
+            Vector3 touchPosition = Input.mousePosition;
+            float screenMiddle = Screen.width * 0.5f;
 
             if (touchPosition.x > screenMiddle)
             {
-                // 오른쪽 입력: Player를 오른쪽으로 이동
                 Move(Vector3.right);
             }
             else if (touchPosition.x < screenMiddle)
             {
-                // 왼쪽 입력: Player를 왼쪽으로 이동
                 Move(Vector3.left);
             }
         }
     }
 
-    void Move(Vector3 direction)
+    private void Move(Vector3 direction)
     {
-        // Player 이동 처리
         transform.Translate(direction * (moveSpeed * Time.deltaTime));
 
         // X축 이동 범위 제한
         float clampedX = Mathf.Clamp(transform.position.x, minX, maxX);
         transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
+    }
+
+    private void DecreaseFuelOverTime()
+    {
+        // 연료 감소
+        fuel = Mathf.Clamp(fuel - fuelDecreaseAmount, 0, maxFuel);
+        if (fuel <= 0)
+        {
+            Debug.Log("연료가 모두 소진되었습니다!");
+            // 추가 동작(게임 오버 등)을 구현할 수 있습니다.
+        }
+    }
+
+    public void IncreaseFuel(float amount)
+    {
+        fuel = Mathf.Clamp(fuel + amount, 0, maxFuel);
+    }
+
+    private void UpdateFuelUI()
+    {
+        // 연료값을 정수로 변환하여 UI에 업데이트
+        fuelText.text = $"Fuel: {Mathf.FloorToInt(fuel)}";
     }
 }
