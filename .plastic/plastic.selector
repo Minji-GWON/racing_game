@@ -1,0 +1,4 @@
+repository "250102/RacingGame@14569554673204@cloud"
+  path "/"
+    br "/main"
+    co "/main"

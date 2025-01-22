@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     {
         // 일정 간격마다 연료 감소
         InvokeRepeating(nameof(DecreaseFuelOverTime), fuelDecreaseInterval, fuelDecreaseInterval);
+        UpdateFuelUI(); // 초기 연료값 표시
+        
     }
 
     private void Update()
@@ -28,6 +30,11 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInput()
     {
+        if (fuel <= 0) 
+        {
+            GameManager.Instance.EndGame(); // 연료가 없으면 입력 무시
+        }
+        
         if (Input.GetMouseButton(0))
         {
             Vector3 touchPosition = Input.mousePosition;
@@ -59,9 +66,16 @@ public class PlayerController : MonoBehaviour
         fuel = Mathf.Clamp(fuel - fuelDecreaseAmount, 0, maxFuel);
         if (fuel <= 0)
         {
-            Debug.Log("연료가 모두 소진되었습니다!");
-            // 추가 동작(게임 오버 등)을 구현할 수 있습니다.
+            // 연료가 0이 되면 게임 종료 호출
+            GameManager.Instance.EndGame();
         }
+    }
+    
+    public void ResetFuel()
+    {
+        // 연료값 초기화
+        fuel = maxFuel;
+        UpdateFuelUI();
     }
 
     public void IncreaseFuel(float amount)

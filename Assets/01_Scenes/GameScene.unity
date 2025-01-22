@@ -204,7 +204,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 28788408}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1678996484}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &28788408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,7 +602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &154634694
 RectTransform:
   m_ObjectHideFlags: 0
@@ -780,7 +792,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuelPrefab: {fileID: 1405314731109976654, guid: e930490272e3c6548958eb8efdb39400, type: 3}
   spawnInterval: 20
-  spawnRangeX: {x: -0.8, y: 0.92}
   spawnY: 5
 --- !u!4 &450448676
 Transform:
@@ -913,7 +924,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 718776789}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1678996484}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ExitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &718776789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,7 +992,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &800125926
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1086,7 +1109,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: START !
+  m_text: "\uC7AC\uB3C4\uC804 !"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c5ef3526c9c15949a425f898bdf7672, type: 2}
   m_sharedMaterial: {fileID: 3329378618875119102, guid: 9c5ef3526c9c15949a425f898bdf7672, type: 2}
@@ -1588,7 +1611,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1435354677}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1678996484}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ReplayGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1435354677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2112,6 +2147,54 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1678996483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1678996485}
+  - component: {fileID: 1678996484}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1678996484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678996483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a52f70ca81c5cb4daccef145b017b59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  homePanel: {fileID: 800125925}
+  gameUI: {fileID: 154634693}
+  replayPanel: {fileID: 131671434}
+  playerController: {fileID: 1541172931}
+--- !u!4 &1678996485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678996483}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.464001, y: 0.20801817, z: -0.018448947}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1775157532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2434,3 +2517,4 @@ SceneRoots:
   - {fileID: 602440585}
   - {fileID: 1541172930}
   - {fileID: 450448676}
+  - {fileID: 1678996485}
