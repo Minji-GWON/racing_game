@@ -791,7 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuelPrefab: {fileID: 1405314731109976654, guid: e930490272e3c6548958eb8efdb39400, type: 3}
-  spawnInterval: 20
+  spawnInterval: 30
   spawnY: 5
 --- !u!4 &450448676
 Transform:
