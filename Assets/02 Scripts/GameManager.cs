@@ -1,6 +1,7 @@
 
 // GameManager.cs
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
     public PlayerController playerController; // PlayerController 참조
 
     private bool _isGameOver = false; // 게임 종료 상태 확인
-    public Spawner enemySpawner; // Spawner 참조
+    public Spawner spawner; // Spawner 참조
 
 
     private void Awake()
@@ -39,13 +40,27 @@ public class GameManager : MonoBehaviour
 
     private void InitializeGame()
     {
-        // 플레이어 연료 초기화
+        // 플레이어 상태 초기화
         if (playerController != null)
         {
-            playerController.ResetFuel();
+            playerController.ResetState();
         }
-
-        Debug.Log("게임 초기화 완료!");
+        
+        if (spawner != null)
+        {
+            spawner.InitializeSpawner();
+        }
+        
+        // 게임 UI 활성화 
+        if (gameUI != null)
+        {
+            gameUI.SetActive(true);
+        }
+        // Background 타일링 활성화
+        foreach (var background in backgrounds)
+        {
+            background.SetTilingActive(true);
+        }
     }
 
     public void StartGame()
@@ -53,20 +68,8 @@ public class GameManager : MonoBehaviour
         // Home Panel 비활성화
         homePanel.SetActive(false);
 
-        // 게임 UI 활성화 
-        if (gameUI != null)
-        {
-            gameUI.SetActive(true);
-        }
-
         // Replay Panel 비활성화
         replayPanel.SetActive(false);
-        
-        // Background 타일링 활성화
-        foreach (var background in backgrounds)
-        {
-            background.SetTilingActive(true);
-        }
         
         // 게임 초기화
         InitializeGame();
@@ -91,21 +94,11 @@ public class GameManager : MonoBehaviour
         // Replay Panel 비활성화
         replayPanel.SetActive(false);
 
-        // 게임 UI 활성화 (선택 사항)
-        if (gameUI != null)
-        {
-            gameUI.SetActive(true);
-        }
-
-        // 게임 초기화
         InitializeGame();
     }
 
     public void EndGame()
     {
-        // Replay Panel 활성화
-        replayPanel.SetActive(true);
-
         // 게임 UI 비활성화
         if (gameUI)
         {
@@ -113,9 +106,9 @@ public class GameManager : MonoBehaviour
         }
         
         // 적 스폰 중단
-        if (enemySpawner)
+        if (spawner)
         {
-            enemySpawner.StopSpawning();
+            spawner.StopSpawning();
         }
         
         // Background 타일링 비활성화
@@ -123,14 +116,13 @@ public class GameManager : MonoBehaviour
         {
             background.SetTilingActive(false);
         }
-
-        Debug.Log("게임 종료!");
+        // Replay Panel 활성화
+        replayPanel.SetActive(true);
     }
 
     public void ExitGame()
     {
         // 게임 종료
-        Debug.Log("종료!");
         Application.Quit();
     }
 }

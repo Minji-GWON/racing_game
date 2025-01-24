@@ -22,19 +22,21 @@ public class Spawner : MonoBehaviour
     private int totalWeight; // 전체 가중치 합
     private bool isSpawning = true; // 스폰 상태 플래그
 
-    private void Start()
+    public void InitializeSpawner()
     {
-        // 전체 가중치 합 계산
+        // 가중치 합 계산
+        totalWeight = 0;
         foreach (int weight in spawnWeights)
         {
             totalWeight += weight;
         }
 
+        isSpawning = true; // 스폰 활성화
         StartCoroutine(SpawnEnemies());
         StartCoroutine(SpawnFuel());
     }
-
-    private IEnumerator SpawnEnemies()
+    
+    public IEnumerator SpawnEnemies()
     {
         while (isSpawning)
         {
@@ -50,7 +52,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnFuel()
+    public IEnumerator SpawnFuel()
     {
         while (isSpawning)
         {
@@ -87,7 +89,7 @@ public class Spawner : MonoBehaviour
     {
         return !Physics2D.OverlapCircle(position, spawnRadius, spawnCheckLayer);
     }
-
+    
     public void StopSpawning()
     {
         isSpawning = false;

@@ -6,11 +6,12 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f; // 이동 속도
     public float minX = -8.5f; // X축 최소값
     public float maxX = 0.92f; // X축 최대값
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
 
     public float fuel = 100f; // 현재 연료값
     public float maxFuel = 100f; // 최대 연료값
     public TextMeshProUGUI fuelText; // UI 텍스트
+    public Vector3 initialPosition; // 초기 위치
 
     public float fuelDecreaseInterval = 2f; // 연료 감소 간격 (초)
     public float fuelDecreaseAmount = 10f; // 감소할 연료량
@@ -27,19 +28,37 @@ public class PlayerController : MonoBehaviour
     
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
         
         // Rigidbody2D 설정
-        if (rb != null)
+        if (_rb != null)
         {
-            rb.gravityScale = 0; // 중력 영향 제거
-            rb.constraints = RigidbodyConstraints2D.FreezePosition; // 위치 고정
+            _rb.gravityScale = 0; // 중력 영향 제거
+            _rb.constraints = RigidbodyConstraints2D.FreezePosition; // 위치 고정
         }
+        // 초기 상태 설정
+        initialPosition = transform.position;
+        ResetState();
         
         // 일정 간격마다 연료 감소
         InvokeRepeating(nameof(DecreaseFuelOverTime), fuelDecreaseInterval, fuelDecreaseInterval);
-        UpdateFuelUI(); // 초기 연료값 표시
         
+    }
+    public void ResetState()
+    {
+        // HP 및 연료, 위치 초기화
+        hp = maxHp;
+        fuel = maxFuel;
+        transform.position = initialPosition;
+        
+        if (playerModel != null)
+        {
+            playerModel.SetActive(true);
+        }
+
+        // UI 업데이트
+        UpdateHpUI();
+        UpdateFuelUI();
     }
 
     private void Update()
@@ -149,12 +168,6 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public void ResetFuel()
-    {
-        // 연료값 초기화
-        fuel = maxFuel;
-        UpdateFuelUI();
-    }
 
     public void IncreaseFuel(float amount)
     {

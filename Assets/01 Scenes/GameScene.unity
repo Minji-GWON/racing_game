@@ -2209,6 +2209,7 @@ MonoBehaviour:
   fuel: 100
   maxFuel: 100
   fuelText: {fileID: 1295975492}
+  initialPosition: {x: 0, y: 0, z: 0}
   fuelDecreaseInterval: 10
   fuelDecreaseAmount: 10
   hp: 100
@@ -2430,7 +2431,7 @@ MonoBehaviour:
   - {fileID: 159963748}
   - {fileID: 44355600}
   playerController: {fileID: 1541172931}
-  enemySpawner: {fileID: 1689871714}
+  spawner: {fileID: 1689871714}
 --- !u!4 &1678996485
 Transform:
   m_ObjectHideFlags: 0
@@ -2481,8 +2482,8 @@ MonoBehaviour:
   - {fileID: 6442474457471984941, guid: 067969f0c7b876a479016cd1192171b2, type: 3}
   spawnWeights: 320000001e00000014000000
   fuelPrefab: {fileID: 1405314731109976654, guid: e930490272e3c6548958eb8efdb39400, type: 3}
-  enemySpawnIntervalMin: 1
-  enemySpawnIntervalMax: 2
+  enemySpawnIntervalMin: 2
+  enemySpawnIntervalMax: 3
   fuelSpawnInterval: 10
   spawnY: 10
   spawnRangeXMin: -1.1

@@ -102,6 +102,7 @@ MonoBehaviour:
   damage: 20
   moveSpeed: 4
   pushForce: 1
+  destructionEffect: {fileID: 6226880380756176351, guid: 2144b6f72e066944ca79c865d0591521, type: 3}
 --- !u!61 &6109873733161057171
 BoxCollider2D:
   m_ObjectHideFlags: 0
