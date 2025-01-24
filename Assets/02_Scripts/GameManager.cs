@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public PlayerController playerController; // PlayerController 참조
 
     private bool _isGameOver = false; // 게임 종료 상태 확인
+    public EnemySpawner enemySpawner; // EnemySpawner 참조
+
 
     private void Awake()
     {
@@ -108,6 +110,12 @@ public class GameManager : MonoBehaviour
         if (gameUI)
         {
             gameUI.SetActive(false);
+        }
+        
+        // 적 스폰 중단
+        if (enemySpawner)
+        {
+            enemySpawner.StopSpawning();
         }
         
         // Background 타일링 비활성화

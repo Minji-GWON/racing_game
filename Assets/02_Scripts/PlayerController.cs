@@ -20,7 +20,11 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI hpText; // UI TextMeshPro
     
     public ParticleSystem collisionEffect; // 충돌 시 파티클 효과
+    public GameManager gameManager; // 게임 매니저 참조 (게임 오버 처리)
 
+    private bool isDestroyed = false; // 파괴 상태 플래그
+    public GameObject playerModel; // 플레이어 차량의 모델 (비활성화용)
+    
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -51,8 +55,29 @@ public class PlayerController : MonoBehaviour
 
         if (hp <= 0)
         {
-            Debug.Log("차량 파괴됨!");
-            // Todo: 추가적인 게임 오버 로직
+            isDestroyed = true; // 파괴 상태 플래그 설정
+            
+            // 파티클 효과 재생
+            if (collisionEffect != null)
+            {
+                Instantiate(collisionEffect, transform.position, Quaternion.identity);
+            }
+            
+            // 플레이어 모델 비활성화
+            if (playerModel != null)
+            {
+                playerModel.SetActive(false);
+            }
+            
+            // 5초 후에 게임 종료 호출
+            Invoke(nameof(DelayedGameOver), 5f);
+        }
+    }
+    private void DelayedGameOver()
+    {
+        if (gameManager != null)
+        {
+            gameManager.EndGame();
         }
     }
     private void UpdateHpUI()
@@ -65,9 +90,13 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // 적과 충돌 시 피해 처리
-            Debug.Log("Player와 적 충돌!");
-            TakeDamage(10f); // 예제: 고정 피해값
+            Enemy enemyDamage = collision.gameObject.GetComponent<Enemy>();
+            
+            if (enemyDamage != null)
+            {
+                float damage = enemyDamage.damage;
+                TakeDamage(damage);
+            }
 
             // 파티클 효과 재생
             if (collisionEffect != null)

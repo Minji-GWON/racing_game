@@ -13,6 +13,8 @@ public class EnemySpawner : MonoBehaviour
     public float spawnRangeXMax = 0.92f; // X축 최대값
 
     private int totalWeight; // 전체 가중치 합
+    
+    private bool isSpawning = true; // 스폰 상태 플래그
 
     private void Start()
     {
@@ -27,12 +29,17 @@ public class EnemySpawner : MonoBehaviour
 
     private void StartSpawning()
     {
-        // 다음 스폰을 랜덤한 간격으로 예약
-        Invoke(nameof(SpawnEnemy), Random.Range(spawnIntervalMin, spawnIntervalMax));
+        if (isSpawning)
+        {
+            // 일정 간격으로 적 스폰 예약
+            Invoke(nameof(SpawnEnemy), Random.Range(spawnIntervalMin, spawnIntervalMax));
+        }
     }
 
     private void SpawnEnemy()
     {
+        if (!isSpawning) return; // 스폰 중단 시 실행하지 않음
+
         // 랜덤한 X 위치 계산
         float spawnX = Random.Range(spawnRangeXMin, spawnRangeXMax);
 
@@ -45,6 +52,12 @@ public class EnemySpawner : MonoBehaviour
 
         // 다음 스폰 예약
         StartSpawning();
+    }
+    
+    public void StopSpawning()
+    {
+        isSpawning = false; // 스폰 중단
+        CancelInvoke(nameof(SpawnEnemy)); // 예약된 Invoke 중단
     }
 
     private GameObject ChooseRandomEnemy()

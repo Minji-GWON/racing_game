@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 104257889}
   - component: {fileID: 104257888}
   m_Layer: 5
-  m_Name: Fuel Text
+  m_Name: Hp Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2262,6 +2262,8 @@ MonoBehaviour:
   maxHp: 100
   hpText: {fileID: 104257888}
   collisionEffect: {fileID: 6226880380756176351, guid: 2144b6f72e066944ca79c865d0591521, type: 3}
+  gameManager: {fileID: 1678996484}
+  playerModel: {fileID: 1541172928}
 --- !u!50 &1541172932
 Rigidbody2D:
   serializedVersion: 4
