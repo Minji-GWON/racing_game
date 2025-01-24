@@ -24,7 +24,7 @@ public class BackgroundTiling : MonoBehaviour
         if(!isTilingActive) return; //타일링이 비활성화 상태면 중단
         
         // 아래로 이동
-        transform.Translate(Vector3.down * speed * Time.deltaTime);
+        transform.Translate(Vector3.down * (speed * Time.deltaTime));
 
         // 특정 위치에 도달하면 초기 위치로 이동
         if (transform.position.y <= endPositionY)

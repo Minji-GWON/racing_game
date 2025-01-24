@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f; // 이동 속도
     public float minX = -8.5f; // X축 최소값
     public float maxX = 0.92f; // X축 최대값
+    private Rigidbody2D rb;
 
     public float fuel = 100f; // 현재 연료값
     public float maxFuel = 100f; // 최대 연료값
@@ -13,9 +14,24 @@ public class PlayerController : MonoBehaviour
 
     public float fuelDecreaseInterval = 2f; // 연료 감소 간격 (초)
     public float fuelDecreaseAmount = 10f; // 감소할 연료량
+    
+    public float hp = 100f; // 차량 HP
+    public float maxHp = 100f; // 최대 HP
+    public TextMeshProUGUI hpText; // UI TextMeshPro
+    
+    public ParticleSystem collisionEffect; // 충돌 시 파티클 효과
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+        
+        // Rigidbody2D 설정
+        if (rb != null)
+        {
+            rb.gravityScale = 0; // 중력 영향 제거
+            rb.constraints = RigidbodyConstraints2D.FreezePosition; // 위치 고정
+        }
+        
         // 일정 간격마다 연료 감소
         InvokeRepeating(nameof(DecreaseFuelOverTime), fuelDecreaseInterval, fuelDecreaseInterval);
         UpdateFuelUI(); // 초기 연료값 표시
@@ -26,6 +42,39 @@ public class PlayerController : MonoBehaviour
     {
         HandleInput(); // 플레이어 입력 처리
         UpdateFuelUI(); // 연료 UI 업데이트
+    }
+    
+    public void TakeDamage(float damage)
+    {
+        hp = Mathf.Clamp(hp - damage, 0, maxHp); // HP 감소
+        UpdateHpUI();
+
+        if (hp <= 0)
+        {
+            Debug.Log("차량 파괴됨!");
+            // Todo: 추가적인 게임 오버 로직
+        }
+    }
+    private void UpdateHpUI()
+    {
+        // TextMeshPro에 HP 표시
+        hpText.text = $"HP: {Mathf.FloorToInt(hp)}";
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            // 적과 충돌 시 피해 처리
+            Debug.Log("Player와 적 충돌!");
+            TakeDamage(10f); // 예제: 고정 피해값
+
+            // 파티클 효과 재생
+            if (collisionEffect != null)
+            {
+                Instantiate(collisionEffect, transform.position, Quaternion.identity);
+            }
+        }
     }
 
     private void HandleInput()
