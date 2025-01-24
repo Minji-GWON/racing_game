@@ -8,13 +8,8 @@ public class Enemy : MonoBehaviour
     public float damage = 10f; // 적의 공격력
     [SerializeField] private float moveSpeed = 3f;
     public float pushForce = 1f; // 적이 옆으로 밀리는 힘
-    
-    private void Start()
-    {
-        
-    }
 
-    private void Update()
+    public void Update()
     {
         MoveDown();
     }

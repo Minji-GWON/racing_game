@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1028176426154629119}
   - component: {fileID: 7380556017062809280}
   - component: {fileID: 5939659510396278951}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FuelItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}

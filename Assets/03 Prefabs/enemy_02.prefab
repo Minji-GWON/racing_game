@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 21985223449867956}
   - component: {fileID: 6109873733161057171}
   - component: {fileID: -6265075255308695940}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: enemy_02
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
-  moveSpeed: 6
+  moveSpeed: 4
   pushForce: 1
 --- !u!61 &6109873733161057171
 BoxCollider2D:

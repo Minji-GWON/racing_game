@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public PlayerController playerController; // PlayerController 참조
 
     private bool _isGameOver = false; // 게임 종료 상태 확인
-    public EnemySpawner enemySpawner; // EnemySpawner 참조
+    public Spawner enemySpawner; // Spawner 참조
 
 
     private void Awake()
