@@ -8,6 +8,9 @@ public class BackgroundTiling : MonoBehaviour
     public float resetPositionY = 10f; // 초기 위치 (위로 이동)
     public float endPositionY = -10f; // 반복 위치 (아래로 이동)
 
+    
+    private bool isTilingActive = false; //타일링 활성화 여부
+    
     private Vector3 startPosition; // 초기 위치 저장
 
     private void Start()
@@ -18,6 +21,8 @@ public class BackgroundTiling : MonoBehaviour
 
     private void Update()
     {
+        if(!isTilingActive) return; //타일링이 비활성화 상태면 중단
+        
         // 아래로 이동
         transform.Translate(Vector3.down * speed * Time.deltaTime);
 
@@ -26,5 +31,10 @@ public class BackgroundTiling : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, resetPositionY, transform.position.z);
         }
+    }
+    //타일링 활성화/비활성화 메서드
+    public void SetTilingActive(bool isActive)
+    {
+        isTilingActive = isActive;
     }
 }

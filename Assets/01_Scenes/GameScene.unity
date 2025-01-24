@@ -2179,6 +2179,10 @@ MonoBehaviour:
   homePanel: {fileID: 800125925}
   gameUI: {fileID: 154634693}
   replayPanel: {fileID: 131671434}
+  backgrounds:
+  - {fileID: 2041409825}
+  - {fileID: 159963748}
+  - {fileID: 44355600}
   playerController: {fileID: 1541172931}
 --- !u!4 &1678996485
 Transform:

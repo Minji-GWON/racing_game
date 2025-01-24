@@ -10,9 +10,11 @@ public class GameManager : MonoBehaviour
     public GameObject gameUI; // 게임 중 표시될 UI 
     public GameObject replayPanel; // Replay Panel
 
+    public BackgroundTiling[] backgrounds; //스크립트 배열 
+    
     public PlayerController playerController; // PlayerController 참조
 
-    private bool isGameOver = false; // 게임 종료 상태 확인
+    private bool _isGameOver = false; // 게임 종료 상태 확인
 
     private void Awake()
     {
@@ -58,6 +60,12 @@ public class GameManager : MonoBehaviour
         // Replay Panel 비활성화
         replayPanel.SetActive(false);
         
+        // Background 타일링 활성화
+        foreach (var background in backgrounds)
+        {
+            background.SetTilingActive(true);
+        }
+        
         // 게임 초기화
         InitializeGame();
     }
@@ -73,7 +81,7 @@ public class GameManager : MonoBehaviour
             gameUI.SetActive(false);
         }
         // 게임 상태 초기화
-        isGameOver = false;
+        _isGameOver = false;
     }
 
     public void ReplayGame()
@@ -100,6 +108,12 @@ public class GameManager : MonoBehaviour
         if (gameUI)
         {
             gameUI.SetActive(false);
+        }
+        
+        // Background 타일링 비활성화
+        foreach (var background in backgrounds)
+        {
+            background.SetTilingActive(false);
         }
 
         Debug.Log("게임 종료!");
