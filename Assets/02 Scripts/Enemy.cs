@@ -6,11 +6,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float damage = 10f; // 적의 공격력
-    private float moveSpeed;
+    [SerializeField] private float moveSpeed = 3f;
     public float pushForce = 1f; // 적이 옆으로 밀리는 힘
+    
     private void Start()
     {
-        moveSpeed = FindObjectOfType<BackgroundTiling>().speed;
+        
     }
 
     private void Update()
